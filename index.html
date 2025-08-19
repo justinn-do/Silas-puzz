@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    input, button {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+    }
+    #result {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <img src="Screenshot 2025-07-16 at 2.39.17 PM.png">
+  <img src="Screenshot 2025-07-16 at 2.39.17 PM.png" alt="Puzzle image">
+  <p>https://tinyurl.com/_ _ _ _ _ _</p>
+
+  <input type="text" id="answer" placeholder="Enter code">
+  <button id="submitBtn">Submit</button>
+  <p id="result"></p>
+
+  <script>
+    const correctAnswer = "Puzzle"; // change this to your desired string
+    const input = document.getElementById("answer");
+    const button = document.getElementById("submitBtn");
+    const result = document.getElementById("result");
+
+    function checkAnswer() {
+      if (input.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
+        // ✅ Redirect to new page
+        window.location.href = "https://tinyurl.com/" + correctAnswer;
+      } else {
+        result.textContent = "❌ Incorrect. Try again.";
+        result.style.color = "red";
+      }
+    }
+
+    button.addEventListener("click", checkAnswer);
+    input.addEventListener("keypress", e => {
+      if (e.key === "Enter") checkAnswer();
+    });
+  </script>
 </body>
 </html>
