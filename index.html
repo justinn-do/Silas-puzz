@@ -3,46 +3,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Puzzle Challenge</title>
   <style>
+    /* === Base Styling === */
     body {
-      font-family: system-ui, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       padding: 2rem;
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e1e2f, #282846, #1a1a2b);
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: #e0e0ff;
+      text-shadow: 0 0 10px rgba(100, 149, 237, 0.7);
+    }
+
+    /* === Larger Image === */
     img {
-      max-width: 100%;
+      max-width: 600px; /* Increased from 300px */
+      width: 90%; /* Ensures it scales nicely on smaller screens */
       height: auto;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease;
     }
+
+    img:hover {
+      transform: scale(1.03); /* Subtle zoom effect */
+    }
+
+    /* === TinyURL Text === */
+    p.link {
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      color: #b5b5ff;
+      text-shadow: 0 0 5px rgba(181, 181, 255, 0.6);
+    }
+
+    /* === Input and Button Styling === */
     input, button {
-      padding: 0.5rem;
+      padding: 0.6rem 1rem;
       margin: 0.5rem;
       font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
     }
-    #result {
-      margin-top: 0.5rem;
+
+    input {
+      width: 220px;
+      text-align: center;
+      background: #2f2f4f;
+      color: #fff;
+    }
+
+    button {
+      background: #4cafef;
+      color: white;
+      cursor: pointer;
       font-weight: bold;
+    }
+
+    button:hover {
+      background: #3694d4;
+      transform: scale(1.05);
+    }
+
+    /* === Result Message === */
+    #result {
+      margin-top: 0.7rem;
+      font-weight: bold;
+      min-height: 1.3rem;
+    }
+
+    /* === Modal Styling === */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #1e1e2f;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: #4cafef;
+    }
+
+    .modal-content a button {
+      background: #28a745;
+    }
+
+    .modal-content a button:hover {
+      background: #218838;
+    }
+
+    /* Smooth fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
+  <h1>Puzzle Challenge</h1>
+  
+  <!-- Puzzle Image (Now Larger) -->
   <img src="Screenshot 2025-07-16 at 2.39.17 PM.png" alt="Puzzle image">
-  <p>https://tinyurl.com/_ _ _ _ _ _</p>
 
+  <p class="link">https://tinyurl.com/_ _ _ _ _ _</p>
+
+  <!-- Input and Submit -->
   <input type="text" id="answer" placeholder="Enter code">
   <button id="submitBtn">Submit</button>
   <p id="result"></p>
 
+  <!-- Popup Modal -->
+  <div id="popup" class="modal">
+    <div class="modal-content">
+      <h2>✅ Correct! Your access code is "0$L"</h2>
+      <p>Click below to continue:</p>
+      <a href="https://ohlonecicada.netlify.app/" target="_blank">
+        <button>Go to Home Page</button>
+      </a>
+    </div>
+  </div>
+
   <script>
-    const correctAnswer = "Puzzle"; // change this to your desired string
+    const correctAnswer = "puzzle"; // The word to be typed
     const input = document.getElementById("answer");
     const button = document.getElementById("submitBtn");
     const result = document.getElementById("result");
+    const popup = document.getElementById("popup");
 
     function checkAnswer() {
-      if (input.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
-        // ✅ Redirect to new page
-        window.location.href = "https://tinyurl.com/" + correctAnswer;
+      // Make the input lowercase and compare to "puzzle"
+      if (input.value.trim().toLowerCase() === correctAnswer) {
+        popup.style.display = "flex"; // Show popup
+        result.textContent = "";
       } else {
         result.textContent = "❌ Incorrect. Try again.";
         result.style.color = "red";
@@ -53,6 +176,14 @@
     input.addEventListener("keypress", e => {
       if (e.key === "Enter") checkAnswer();
     });
+
+    // Close modal when clicking outside of it
+    window.onclick = function(e) {
+      if (e.target === popup) {
+        popup.style.display = "none";
+      }
+    }
   </script>
 </body>
 </html>
+
