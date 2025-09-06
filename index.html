@@ -155,7 +155,7 @@
   </div>
 
   <script>
-    const correctAnswer = "puzzle"; // The word to be typed
+    const rod = "puzzle"; // The word to be typed
     const input = document.getElementById("answer");
     const button = document.getElementById("submitBtn");
     const result = document.getElementById("result");
@@ -163,7 +163,7 @@
 
     function checkAnswer() {
       // Make the input lowercase and compare to "puzzle"
-      if (input.value.trim().toLowerCase() === correctAnswer) {
+      if (input.value.trim().toLowerCase() === rod) {
         popup.style.display = "flex"; // Show popup
         result.textContent = "";
       } else {
